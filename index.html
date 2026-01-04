@@ -11,10 +11,6 @@
     .timer-display {
       display: none !important;
     }
-    
-    .match-group {
-  margin-top: 0 !important;
-}
 
     /* Main CSS Styles */
     body {
@@ -215,6 +211,7 @@
       list-style: none;
       cursor: pointer;
       margin: 0;
+      flex-shrink: 0;
     }
 
     .card {
@@ -257,7 +254,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      width: 120px;
+      width: 10px;
     }
 
     .t1,
@@ -334,9 +331,16 @@
       font-size: 12px;
     }
 
-    /* --- MATCH GROUP SEPARATORS --- */
-    .match-group {
-      display: flex !important;
+    /* --- MAIN MATCHES CONTAINER --- */
+    .all-matches-container {
+      width: 100%;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+
+    /* All matches in one horizontal row */
+    .all-matches-row {
+      display: flex;
       gap: 15px;
       overflow-x: auto;
       overflow-y: hidden;
@@ -345,43 +349,36 @@
     }
 
     /* Scrollbar hide (mobile friendly) */
-    .match-group::-webkit-scrollbar {
+    .all-matches-row::-webkit-scrollbar {
       display: none;
     }
-    .match-group {
+    .all-matches-row {
       -ms-overflow-style: none;
       scrollbar-width: none;
     }
 
     /* Card width fix for horizontal scroll */
     .match-card-item {
-      min-width: 340px;
-      max-width: 340px;
+      min-width: 380px;
+      max-width: 380px;
       flex-shrink: 0;
     }
 
-    .group-header {
+    /* Header for all matches */
+    .all-matches-header {
       font-size: 18px;
       font-weight: bold;
       color: #fff;
       margin-bottom: 15px;
       padding-bottom: 8px;
-      border-bottom: 2px solid;
+      border-bottom: 2px solid #2962ff;
       display: flex;
       align-items: center;
     }
 
-    .group-icon {
+    .all-matches-header .header-icon {
       margin-right: 10px;
       font-size: 20px;
-    }
-
-    .live-header {
-      border-color: #dc2626;
-    }
-
-    .upcoming-header {
-      border-color: #2962ff;
     }
 
     /* Stream Selector */
@@ -455,24 +452,56 @@
     }
 
     /* =========================================== */
-    /* RESPONSIVE GRID LAYOUT FOR MATCH CARDS */
+    /* RESPONSIVE CARD SIZING FOR HORIZONTAL LAYOUT */
     /* =========================================== */
 
-    /* Default: Mobile (1 card per row) */
-    .match-group {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 15px;
-    }
-
-    /* Tablet: 2 cards per row (600px to 900px) */
-    @media (min-width: 600px) {
-      .match-group {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
+    /* Mobile: Fixed card width */
+    @media (max-width: 600px) {
+      .match-card-item {
+        min-width: 280px;
+        max-width: 280px;
       }
 
-      /* Adjust card layout for 2 columns */
+      .team-container {
+        width: 90px;
+      }
+
+      .t1,
+      .t2 {
+        width: 45px;
+        height: 45px;
+      }
+
+      .vs {
+        width: 45px;
+        height: 45px;
+      }
+
+      .team-name {
+        font-size: 12px;
+        max-width: 80px;
+      }
+
+      .des {
+        font-size: 12px;
+      }
+
+      .start-time-text {
+        font-size: 11px;
+      }
+
+      .timer-display {
+        font-size: 12px;
+      }
+    }
+
+    /* Tablet: Slightly wider cards */
+    @media (min-width: 601px) and (max-width: 900px) {
+      .match-card-item {
+        min-width: 320px;
+        max-width: 320px;
+      }
+
       .team-container {
         width: 100px;
       }
@@ -506,121 +535,55 @@
       }
     }
 
-    /* Desktop: 3 cards per row (900px and above) */
-    @media (min-width: 900px) {
-      .match-group {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 15px;
+    /* Desktop: Standard card width */
+    @media (min-width: 901px) {
+      .match-card-item {
+        min-width: 340px;
+        max-width: 340px;
       }
 
-      /* Adjust card layout for 3 columns */
       .team-container {
-        width: 90px;
+        width: 120px;
       }
 
       .t1,
       .t2 {
-        width: 45px;
-        height: 45px;
+        width: 60px;
+        height: 60px;
       }
 
       .vs {
-        width: 45px;
-        height: 45px;
+        width: 60px;
+        height: 60px;
       }
 
       .team-name {
-        font-size: 12px;
-        max-width: 80px;
+        font-size: 14px;
+        max-width: 100px;
       }
 
       .des {
-        font-size: 12px;
+        font-size: 14px;
       }
 
       .start-time-text {
-        font-size: 11px;
+        font-size: 12px;
       }
 
       .timer-display {
-        font-size: 12px;
-      }
-
-      .status-upcoming {
-        width: 100px;
-        text-align: center;
-        padding: 5px;
-        margin: 5px;
-      }
-
-      .status-live {
-        width: 60px;
-        text-align: center;
-        padding: 5px;
-        margin: 5px;
+        font-size: 14px;
       }
     }
 
-    /* Large Desktop: 4 cards per row (1200px and above) */
+    /* Large Desktop: Slightly larger cards */
     @media (min-width: 1200px) {
-      .match-group {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 15px;
+      .match-card-item {
+        min-width: 360px;
+        max-width: 360px;
       }
-    }
-
-    /* Mobile adjustments (under 600px) */
-    @media (max-width: 600px) {
-      body {
-        padding: 0;
-      }
-
-      .team-container {
-        width: 100px;
-      }
-
-      .t1,
-      .t2 {
-        width: 50px;
-        height: 50px;
-      }
-
-      .vs {
-        width: 50px;
-        height: 50px;
-      }
-
-      .team-name {
-        font-size: 12px;
-        max-width: 80px;
-      }
-
-      .group-header {
-        font-size: 16px;
-      }
-
-      .status-badge {
-        font-size: 10px;
-        padding: 3px 8px;
-      }
-
-      .duration-info {
-        font-size: 10px;
-      }
-
-      .stream-selector {
-        gap: 5px;
-      }
-
-      .stream-btn {
-        padding: 4px 8px;
-        font-size: 10px;
-      }
-
-      /* Ensure single column on mobile */
-      .match-group {
-        grid-template-columns: 1fr;
-        gap: 12px;
+      
+      .all-matches-row {
+        gap: 20px;
       }
     }
 
@@ -635,6 +598,10 @@
       .slider-status-badge {
         font-size: 11px;
         padding: 5px 8px;
+      }
+      
+      .all-matches-header {
+        font-size: 16px;
       }
     }
 
@@ -683,8 +650,14 @@
     </div>
   </div>
 
-  <!-- Main Content Container -->
-  <div id="matches-container"></div>
+  <!-- All Matches Container -->
+  <div class="all-matches-container" id="allMatchesContainer">
+    <div class="all-matches-header">
+      <span class="header-icon"><i class="fas fa-trophy"></i></span>
+      Live & Upcoming Matches
+    </div>
+    <div class="all-matches-row" id="allMatchesRow"></div>
+  </div>
 
   <!-- Loading Message -->
   <div id="loading-message"
@@ -695,11 +668,12 @@
   <script>
     // Data URL and DOM elements
     const DATA_URL =
-      'https://raw.githubusercontent.com/filmyfly4wap/t20i/refs/heads/main/t20wc.json';
-    const container = document.getElementById('matches-container');
+      'https://raw.githubusercontent.com/filmyfly4wap/ipl/refs/heads/main/ipll.json';
+    const allMatchesRow = document.getElementById('allMatchesRow');
     const loadingMessage = document.getElementById('loading-message');
     const sliderTrack = document.getElementById('sliderTrack');
     const sliderIndicators = document.getElementById('sliderIndicators');
+    const allMatchesContainer = document.getElementById('allMatchesContainer');
 
     let countdownInterval;
     let allMatches = [];
@@ -709,27 +683,30 @@
     let isDragging = false;
     let startX = 0;
     let sliderTimeCheckInterval;
+    let isRowDragging = false;
+    let rowStartX = 0;
 
     // Default logo placeholder
     const DEFAULT_LOGO =
       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRVScOHhjuxyM-bZpfN6mEM6Sg6L_ThbQSECFR2JhiZlt4CcO_72hRv2M&s=10';
 
     // Status configuration - Only LIVE and UPCOMING
-     const STATUS_CONFIG = {
-  live: {
-    badgeClass: 'status-live',
-    title: '',
-    icon: '',
-    timerColor: '#dc2626'
-  },
-  upcoming: {
-    badgeClass: 'status-upcoming',
-    title: '',
-    icon: '',
-    timerColor: '#2962ff',
-    show: true
-  }
-};
+    const STATUS_CONFIG = {
+      live: {
+        badgeClass: 'status-live',
+        title: '',
+        icon: '',
+        timerColor: '#dc2626'
+      },
+      upcoming: {
+        badgeClass: 'status-upcoming',
+        title: '',
+        icon: '',
+        timerColor: '#2962ff',
+        show: true
+      }
+    };
+    
     // Default duration if not specified in JSON
     const DEFAULT_DURATION_HOURS = 8;
 
@@ -1009,7 +986,7 @@
       startAutoSlide();
     });
 
-    // Mouse events for desktop
+    // Mouse events for desktop slider
     sliderTrack.addEventListener('mousedown', (e) => {
       startX = e.clientX;
       isDragging = true;
@@ -1035,6 +1012,56 @@
       isDragging = false;
       startAutoSlide();
     });
+
+    // ============ MATCHES ROW SWIPE FUNCTIONS ============
+    // Add swipe functionality to matches row
+    function setupMatchesRowSwipe() {
+      const row = document.getElementById('allMatchesRow');
+      
+      // Touch events for mobile
+      row.addEventListener('touchstart', (e) => {
+        rowStartX = e.touches[0].clientX;
+        isRowDragging = true;
+        row.style.scrollBehavior = 'auto'; // Disable smooth scroll during drag
+      });
+
+      row.addEventListener('touchmove', (e) => {
+        if (!isRowDragging) return;
+        const moveX = e.touches[0].clientX;
+        const diff = rowStartX - moveX;
+        
+        // Scroll horizontally based on drag
+        row.scrollLeft += diff;
+        rowStartX = moveX;
+      });
+
+      row.addEventListener('touchend', () => {
+        isRowDragging = false;
+        row.style.scrollBehavior = 'smooth'; // Re-enable smooth scroll
+      });
+
+      // Mouse events for desktop
+      row.addEventListener('mousedown', (e) => {
+        rowStartX = e.clientX;
+        isRowDragging = true;
+        row.style.scrollBehavior = 'auto';
+        e.preventDefault();
+      });
+
+      document.addEventListener('mousemove', (e) => {
+        if (!isRowDragging) return;
+        const moveX = e.clientX;
+        const diff = rowStartX - moveX;
+        
+        row.scrollLeft += diff;
+        rowStartX = moveX;
+      });
+
+      document.addEventListener('mouseup', () => {
+        isRowDragging = false;
+        row.style.scrollBehavior = 'smooth';
+      });
+    }
 
     // ============ MATCH FUNCTIONS ============
     // Get match by ID
@@ -1124,26 +1151,31 @@
       return 'unknown';
     }
 
-    // Filter and group matches - only show LIVE and UPCOMING
-    function filterAndGroupMatches(matches) {
-      const groups = {
-        live: [],
-        upcoming: []
-      };
-
-      matches.forEach(match => {
+    // Filter matches - only show LIVE and UPCOMING
+    function filterMatches(matches) {
+      return matches.filter(match => {
         const status = getMatchStatus(match);
-        if (status === 'live') {
-          groups.live.push(match);
-        } else if (status === 'upcoming') {
-          groups.upcoming.push(match);
-        }
+        return status === 'live' || status === 'upcoming';
       });
+    }
 
-      // Sort upcoming matches by time (soonest first)
-      groups.upcoming.sort((a, b) => parseStartTime(a.startTime) - parseStartTime(b.startTime));
-
-      return groups;
+    // Sort matches: LIVE first, then UPCOMING sorted by time
+    function sortMatches(matches) {
+      return matches.sort((a, b) => {
+        const statusA = getMatchStatus(a);
+        const statusB = getMatchStatus(b);
+        
+        // LIVE matches come first
+        if (statusA === 'live' && statusB !== 'live') return -1;
+        if (statusA !== 'live' && statusB === 'live') return 1;
+        
+        // For non-LIVE matches, sort by start time
+        const timeA = parseStartTime(a.startTime);
+        const timeB = parseStartTime(b.startTime);
+        
+        if (isNaN(timeA) || isNaN(timeB)) return 0;
+        return timeA - timeB;
+      });
     }
 
     // Generate stream selector HTML
@@ -1258,37 +1290,24 @@
       `;
     }
 
-    // Generate group HTML
-    function generateGroupHTML(status, matches) {
-      const config = STATUS_CONFIG[status];
-      if (!matches || matches.length === 0) return '';
-
-      return `
-        <div class="match-group" data-status="${status}">
-          <div class="group-header ${status}-header">
-            <span class="group-icon">${config.icon}</span>
-            ${config.title}
-          </div>
-          ${matches.map(match => generateMatchCard(match, status)).join('')}
-        </div>
-      `;
-    }
-
-    // Display only live and upcoming matches
-    function displayLiveAndUpcomingMatches(groups) {
-      let html = '';
-
-      /* LIVE MATCHES FIRST */
-      if (groups.live && groups.live.length > 0) {
-        html += generateGroupHTML('live', groups.live);
+    // Display all matches in horizontal row
+    function displayAllMatchesInRow(matches) {
+      allMatchesRow.innerHTML = '';
+      
+      matches.forEach(match => {
+        const status = getMatchStatus(match);
+        if (status === 'live' || status === 'upcoming') {
+          const cardHTML = generateMatchCard(match, status);
+          allMatchesRow.innerHTML += cardHTML;
+        }
+      });
+      
+      // Show/hide container based on matches
+      if (matches.length > 0) {
+        allMatchesContainer.style.display = 'block';
+      } else {
+        allMatchesContainer.style.display = 'none';
       }
-
-      /* UPCOMING MATCHES SECOND */
-      if (groups.upcoming && groups.upcoming.length > 0) {
-        html += generateGroupHTML('upcoming', groups.upcoming);
-      }
-
-      container.innerHTML = html;
     }
 
     // Start countdown for upcoming matches with duration support
@@ -1296,7 +1315,6 @@
       if (countdownInterval) clearInterval(countdownInterval);
 
       countdownInterval = setInterval(() => {
-        const now = new Date().getTime();
         let needsUpdate = false;
 
         allMatches.forEach(match => {
@@ -1307,8 +1325,8 @@
 
             // Check if status changed from upcoming to live
             if (timeDifference === 'LIVE') {
-              const matchGroup = timerElement.closest('.match-group');
-              if (matchGroup && matchGroup.dataset.status === 'upcoming') {
+              const currentStatus = getMatchStatus(match);
+              if (currentStatus === 'live') {
                 needsUpdate = true;
               }
             }
@@ -1330,8 +1348,9 @@
         // If matches changed status, regenerate the display
         if (needsUpdate) {
           setTimeout(() => {
-            const groups = filterAndGroupMatches(allMatches);
-            displayLiveAndUpcomingMatches(groups);
+            const filteredMatches = filterMatches(allMatches);
+            const sortedMatches = sortMatches(filteredMatches);
+            displayAllMatchesInRow(sortedMatches);
           }, 1000);
         }
       }, 1000);
@@ -1373,11 +1392,15 @@
               );
             });
 
-            // Filter and group matches (only live and upcoming)
-            const groups = filterAndGroupMatches(allMatches);
+            // Filter and sort matches (only live and upcoming)
+            const filteredMatches = filterMatches(allMatches);
+            const sortedMatches = sortMatches(filteredMatches);
 
-            // Display only live and upcoming matches
-            displayLiveAndUpcomingMatches(groups);
+            // Display all matches in horizontal row
+            displayAllMatchesInRow(sortedMatches);
+
+            // Setup swipe functionality for matches row
+            setupMatchesRowSwipe();
 
             // Start countdown timer
             startCountdown();
